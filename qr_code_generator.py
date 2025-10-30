@@ -1,3 +1,4 @@
+import os
 import segno
 from tkinter import filedialog
 import tkinter as tkin
@@ -10,9 +11,13 @@ window.geometry("550x450")
 frame=tkin.Frame(borderwidth=5,relief="groove")
 
 link=tkin.Entry(master=frame)
+
+qr_code_name=tkin.Entry(master=frame)
+
+qr_code_name.insert(0,"Put file name here!")
 link.insert(0,"Insert Link Here")
 
-img_file_loc=tkin.Entry(master=frame,width=20)
+# img_file_loc=tkin.Entry(master=frame,width=20)
 
 # #functions :)
 # def load_img_file():
@@ -32,13 +37,17 @@ img_file_loc=tkin.Entry(master=frame,width=20)
         # error="h"
     # )
 def create_qr_code():
+    qr_code_fname=qr_code_name.get()+".png"
+    
     qr_code=segno.make(link.get())
     qr_code.designator
     
     qr_code.save(
-        "qr_code.png",
+        qr_code_fname,
         border=2,
     )
+    
+    os.startfile(qr_code_fname)
     print("alllllllllllllllllllllllllllllllllll done")
 #img=tkin.Button(text="image file location if you want",master=frame,command=load_img_file)
 
@@ -49,6 +58,7 @@ create_qr_norm=tkin.Button(text="Create QR CODE",master=frame,width=20,command=c
 
 frame.pack()
 link.pack()
+qr_code_name.pack()
 #img.pack()
 #img_file_loc.pack()
 create_qr_norm.pack()
